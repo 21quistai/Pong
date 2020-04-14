@@ -1,6 +1,7 @@
 class Ball{
   private PVector position;
   private PVector velocity;
+  //This is a test
   
   private int radius; // The radius of the ball
   public int m; //NO IDEA WHAT THIS IS USED FOR
