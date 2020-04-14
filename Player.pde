@@ -27,9 +27,9 @@ class Player{
   
   
  /** 
-  * Checks what key the user is pressing with the userInput and checks if it not hitting a wall
+  * Checks what key the user is pressing with the userInput and checks if it not touching a wall
   * If it isn't then the paddle can move
-  * If t is hitting a wall it moves the paddle back so it can move again
+  * If it is touching a wall it moves the paddle back so it can move again
  */
   public void movePaddle(){
     if (userInput() < 0 && hitWall() == 0){
@@ -40,6 +40,14 @@ class Player{
       this.y += -1 * hitWall();
     }
   }
+  
+  /**
+   *checks if the paddle is touching the top or bottom of the screen
+   *IDK why I didn't just use a boolean??
+   *@return -1 if the paddle is touching the top 
+   *@return 1 if the paddle is touching the bottom
+   *@return 0 if the paddle isn't touching any edge
+  */
   
   public int hitWall(){
     if(this.y <= 0) return -1;

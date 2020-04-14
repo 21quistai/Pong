@@ -1,13 +1,9 @@
 class Ball{
-  //int x;
-  //int y;
-  //int xSpeed;
-  //int ySpeed;
-  //int size;
-  PVector position;
-  PVector velocity;
+  private PVector position;
+  private PVector velocity;
   
-  int radius, m;
+  private int radius; // The radius of the ball
+  public int m; //NO IDEA WHAT THIS IS USED FOR
   
   public Ball (float x, float y, int r){
     position = new PVector (x, y);
@@ -83,7 +79,7 @@ class Ball{
       
       //I don't want velocity to switch between the two balls, how do I do that?????????????
 
-       rotate Temporary velocities
+      //rotate Temporary velocities
       PVector[] vTemp = {
         new PVector(), new PVector()
       };
@@ -132,12 +128,38 @@ class Ball{
       position.add(bFinal[0]);
 
       // update velocities
-      //velocity.x = cosine * vFinal[0].x - sine * vFinal[0].y;
-      //velocity.y = cosine * vFinal[0].y + sine * vFinal[0].x;
-      //other.velocity.x = cosine * vFinal[1].x - sine * vFinal[1].y;
-      //other.velocity.y = cosine * vFinal[1].y + sine * vFinal[1].x;
+      velocity.x = cosine * vFinal[0].x - sine * vFinal[0].y;
+      velocity.y = cosine * vFinal[0].y + sine * vFinal[0].x;
+      other.velocity.x = cosine * vFinal[1].x - sine * vFinal[1].y;
+      other.velocity.y = cosine * vFinal[1].y + sine * vFinal[1].x;
     }
   }
   
+  //GETTERS / SETTERS
+  
+  
+  //radius//
+  public int getRadius(){
+    return radius;
+  }
+  public void setRadius(int num){
+    radius = num;
+  }
+  
+  //position//
+  public PVector getPosition(){
+    return position;
+  }
+  public void setPosition(PVector thing){
+    position = thing;
+  }
+  
+  //velocity//
+  public PVector getVelocity(){
+    return velocity;
+  }
+  public void setVelocity(PVector thing){
+    velocity = thing;
+  }
   
 }
