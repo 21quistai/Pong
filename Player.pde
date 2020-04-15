@@ -3,7 +3,13 @@ class Player{
   int ySpeed = 5;
   int w, h;
   int score;
-  
+	
+  public Player (int x_, int y_, int w_, int h_){
+    this.x = x_;
+    this.y = y_;
+    this.w = w_;
+    this.h = h_;
+  }	  
   public void drawPaddle(){
     fill(255);
     rect (x, y, w, h);
@@ -32,18 +38,19 @@ class Player{
   * If it is touching a wall it moves the paddle back so it can move again
  */
   public void movePaddle(){
-    if (userInput() < 0 && hitWall() == 0){
+    if (userInput() < 0){
         this.y -= this.ySpeed;
-    } else if(userInput() > 0 && hitWall() == 0){
+        if(hitWall() == -1) this.y = 1;
+        else if (hitWall() == 1) this.y = height - this.h;
+    } else if(userInput() > 0){
       this.y += this.ySpeed;
-    } else if(hitWall() != 0){
-      this.y += -1 * hitWall();
-    }
+      if(hitWall() == -1) this.y = 1;
+      else if (hitWall() == 1) this.y = height - this.h ;
+    } 
   }
   
   /**
-   *checks if the paddle is touching the top or bottom of the screen
-   *IDK why I didn't just use a boolean??
+   *detects if the paddle is touching the top or bottom of the screen
    *@return -1 if the paddle is touching the top 
    *@return 1 if the paddle is touching the bottom
    *@return 0 if the paddle isn't touching any edge

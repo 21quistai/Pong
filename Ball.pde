@@ -1,16 +1,17 @@
 class Ball{
   private PVector position;
   private PVector velocity;
-  //This is a test
   
-  private int radius; // The radius of the ball
-  public int m; //NO IDEA WHAT THIS IS USED FOR
+  private float radius; // The radius of the ball
+  public float m; //middle i think
   
   public Ball (float x, float y, int r){
     position = new PVector (x, y);
-    velocity = PVector.random2D();
+    velocity = new PVector (0,0);
+    //velocity = PVector.random2D();// use this for final version
     velocity.mult(3);
     radius = r;
+    m = radius*.1;
   }
   
   public void drawBall(){
@@ -22,7 +23,7 @@ class Ball{
   }
   
   
-  public void hitWall(){
+  public void wallCollision(){
  if (position.y > height-radius) {
       position.y = height-radius;
       velocity.y *= -1;
@@ -38,77 +39,73 @@ class Ball{
     }
   }
   
-  void hitBall(Ball other){
+  void BallBallCollision(Ball other){
+    // Calculates the distance between the two balls
+    PVector distanceBtwn = PVector.sub(other.position, position);
     
-    // Get distances between the balls components
-    PVector distanceVect = PVector.sub(other.position, position);
-
-    // Calculate magnitude of the vector separating the balls
-    float distanceVectMag = distanceVect.mag();
-
-    // Minimum distance before they are touching
+    // Calculates the distanceBtwn as a magnatude
+    float distanceBtwnMag = distanceBtwn.mag();
+    
+    // Calculates the minimum distance until the two balls are touching
     float minDistance = radius + other.radius;
     
-    //If the distance of the vector is less then the 
-    if (distanceVectMag < minDistance) {
-      float distanceCorrection = (minDistance-distanceVectMag)/2.0;
-      PVector d = distanceVect.copy();
+    if (distanceBtwnMag < minDistance){
+      float distanceCorrection = (minDistance-distanceBtwnMag)/2.0;
+      PVector d = distanceBtwn.copy();
       PVector correctionVector = d.normalize().mult(distanceCorrection);
       other.position.add(correctionVector);
       position.sub(correctionVector);
-
-      // get angle of distanceVect
-      float theta  = distanceVect.heading();
-      // precalculate trig values
+      
+      float theta = distanceBtwn.heading();
+      System.out.println(theta);
       float sine = sin(theta);
       float cosine = cos(theta);
-
+      
+      
       /* bTemp will hold rotated ball positions. You 
        just need to worry about bTemp[1] position*/
       PVector[] bTemp = {
         new PVector(), new PVector()
-      };
-
+      };  
+      
       /* this ball's position is relative to the other
        so you can use the vector between them (bVect) as the 
        reference point in the rotation expressions.
        bTemp[0].position.x and bTemp[0].position.y will initialize
        automatically to 0.0, which is what you want
        since b[1] will rotate around b[0] */
-      bTemp[1].x  = cosine * distanceVect.x + sine * distanceVect.y;
-      bTemp[1].y  = cosine * distanceVect.y - sine * distanceVect.x;
+      bTemp[1].x  = cosine * distanceBtwn.x + sine * distanceBtwn.y;
+      bTemp[1].y  = cosine * distanceBtwn.y - sine * distanceBtwn.x;
       
-      //I don't want velocity to switch between the two balls, how do I do that?????????????
-
+      
       //rotate Temporary velocities
       PVector[] vTemp = {
         new PVector(), new PVector()
-      };
-
-      vTemp[0].x  = cosine * other.velocity.x + sine * velocity.y;
+      }; 
+      
+      vTemp[0].x = cosine * other.velocity.x + sine * velocity.y;
       vTemp[0].y  = cosine * other.velocity.y - sine * velocity.x;
       vTemp[1].x  = cosine * velocity.x + sine * other.velocity.y;
       vTemp[1].y  = cosine * velocity.y - sine * other.velocity.x;
-
+      
       /* Now that velocities are rotated, you can use 1D
        conservation of momentum equations to calculate 
        the final velocity along the x-axis. */
       PVector[] vFinal = {  
         new PVector(), new PVector()
       };
-
+      
       // final rotated velocity for b[0]
       vFinal[0].x = ((m - other.m) * vTemp[0].x + 2 * other.m * vTemp[1].x) / (m + other.m);
       vFinal[0].y = vTemp[0].y;
-
+      
       // final rotated velocity for b[0]
       vFinal[1].x = ((other.m - m) * vTemp[1].x + 2 * m * vTemp[0].x) / (m + other.m);
       vFinal[1].y = vTemp[1].y;
-
-      // hack to avoid clumping
+      
       bTemp[0].x += vFinal[0].x;
       bTemp[1].x += vFinal[1].x;
-
+      
       /* Rotate ball positions and velocities back
        Reverse signs in trig expressions to rotate 
        in the opposite direction */
@@ -117,6 +114,7 @@ class Ball{
         new PVector(), new PVector()
       };
 
+      // update balls to screen position
       bFinal[0].x = cosine * bTemp[0].x - sine * bTemp[0].y;
       bFinal[0].y = cosine * bTemp[0].y + sine * bTemp[0].x;
       bFinal[1].x = cosine * bTemp[1].x - sine * bTemp[1].y;
@@ -134,16 +132,17 @@ class Ball{
       other.velocity.x = cosine * vFinal[1].x - sine * vFinal[1].y;
       other.velocity.y = cosine * vFinal[1].y + sine * vFinal[1].x;
     }
+    
   }
   
   //GETTERS / SETTERS
   
   
   //radius//
-  public int getRadius(){
+  public float getRadius(){
     return radius;
   }
-  public void setRadius(int num){
+  public void setRadius(float num){
     radius = num;
   }
   
