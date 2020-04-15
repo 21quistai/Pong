@@ -26,8 +26,9 @@ void setup(){
 void draw(){
 
   background(55);
-  player.drawPaddle();
+  player.displayPaddle();
   player.movePaddle();
+  System.out.println(player.x);
   
  
   ball.moveBall();
