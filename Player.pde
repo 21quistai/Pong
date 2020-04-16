@@ -3,6 +3,8 @@ class Player{
   private int ySpeed = 5; // speed that the paddle moves
   private int w, h; // width + height of the paddle
   private int score; // score of the player
+  
+
 	
   public Player (int x_, int y_, int w_, int h_){
     this.x = x_;
@@ -58,7 +60,6 @@ class Player{
    *@return 1 if the paddle is touching the bottom
    *@return 0 if the paddle isn't touching any edge
   */
-  
   public int hitWall(){
     if(this.y <= 0) return -1;
     else if (this.y + this.h >= height) return 1;
@@ -110,4 +111,11 @@ class Player{
   public void setScore(int num){
     this.score = num;
   }
+  
+  //public int getBorders(String border){
+  //  border = border.toLowerCase();
+  //  if (border.equals("left")) return this.x;
+  //  else if (border.equals("right")) return this.x + this.w;
+  //  else if (border.equals("right"))
+  //}
 }
