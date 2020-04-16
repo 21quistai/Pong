@@ -1,20 +1,22 @@
 class Ball{
-  private PVector position;
-  private PVector velocity;
+  private PVector position; // Position of the ball has an x and y
+  private PVector velocity; // The velocity of the ball has an x and y
   
   private float radius; // The radius of the ball
-  public float m; //middle i think
+  public float m; //middle I think
   
   public Ball (float x, float y, int r){
     position = new PVector (x, y);
-    velocity = new PVector (0,0);
-    //velocity = PVector.random2D();// use this for final version
+    //velocity = new PVector (0,0);//use for testing collision
+    velocity = PVector.random2D();// use this for final version
     velocity.mult(3);
     radius = r;
     m = radius*.1;
   }
   
+  
   public void drawBall(){
+    fill(255);
     ellipse(position.x,position.y, radius*2, radius*2);
   }
   
@@ -22,24 +24,60 @@ class Ball{
     position.add(velocity);
   }
   
-  
+  /**
+   * Bounces the ball of the top and bottom of the screen
+   * Reflects the ball off in the opposite direction */
   public void wallCollision(){
- if (position.y > height-radius) {
+   if (position.y > height-radius) {
       position.y = height-radius;
       velocity.y *= -1;
     } else if (position.y < radius) {
       position.y = radius;
       velocity.y *= -1;
-    } else if (position.x > width-radius) {
-      position.x = width-radius;
-      velocity.x *= -1;
-    } else if (position.x < radius) {
-      position.x = radius;
-      velocity.x *= -1;
+    } 
+  }
+  
+  /**
+   * Detects if the ball passes the left and right side of the screen
+   * @return -1 if it passes the left wall
+   * @return 1 if it passes the right wall
+   * @return 0 if it hasn't hit any wall*/
+  public int goalCollision(){
+
+    // Left wall
+    if (position.x - radius> width) return -1;
+    // Right wall
+    else if (position.x + radius < 0) return 1;
+    // Nothing
+    else return 0;
+  }
+  
+  
+  /**
+   * Detects if a ball hits a paddle
+   * Reflects the ball off in the opposite direction
+   * @param the player that the paddle hits */
+  public void paddleCollision(Player p){
+    System.out.println (p);
+    if ( position.y - radius >= p.getY() && position.y + radius <= p.getY() - p.getH() && position.x - radius >= p.getX() + p.getW()){
+      //Right side
+      //if (position.x - radius >= p.getX() + p.getW()){
+        velocity.x *= -1;
+        System.out.println("hit");
+        
+      //  //Left side
+      //} else if (position.x + radius >= p.getX()){
+      //   System.out.println ("Hit");
+      //}
     }
   }
   
-  void BallBallCollision(Ball other){
+  
+  /**
+   * Detects if the ball hits another ball
+   * Reflects the ball off and changes the velocity
+   * @param the ball that it hits */
+  void BallCollision(Ball other){
     // Calculates the distance between the two balls
     PVector distanceBtwn = PVector.sub(other.position, position);
     
@@ -57,7 +95,6 @@ class Ball{
       position.sub(correctionVector);
       
       float theta = distanceBtwn.heading();
-      System.out.println(theta);
       float sine = sin(theta);
       float cosine = cos(theta);
       
