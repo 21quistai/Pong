@@ -83,6 +83,7 @@ class Player{
   public void setY(int num){
     this.y = num;
   }
+  
   //ySpeed//
   public int getYSpeed(){
     return this.ySpeed;
@@ -90,6 +91,7 @@ class Player{
   public void setYSpeed(int num){
     this.ySpeed = num;
   }
+  
   //w//
   public int getW(){
     return this.w;
@@ -97,6 +99,7 @@ class Player{
   public void setW(int num){
     this.w = num;
   }
+  
   //h//
   public int getH(){
     return this.y;
@@ -104,6 +107,7 @@ class Player{
   public void setH(int num){
     this.h = num;
   }
+  
   //score//
   public int getScore(){
     return this.score;
@@ -111,11 +115,4 @@ class Player{
   public void setScore(int num){
     this.score = num;
   }
-  
-  //public int getBorders(String border){
-  //  border = border.toLowerCase();
-  //  if (border.equals("left")) return this.x;
-  //  else if (border.equals("right")) return this.x + this.w;
-  //  else if (border.equals("right"))
-  //}
 }
