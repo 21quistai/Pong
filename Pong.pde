@@ -7,6 +7,7 @@ int ph = height / 4;
 int px = pw + 20;
 int py = height /2 - ph / 2;
 Player player = new Player(px, py, pw, ph);
+Player bot = new Player(width - pw, py, pw, ph);
 
 
 //Ball stuff
@@ -29,12 +30,16 @@ void draw(){
   
   player.displayPaddle();
   player.movePaddle();
+  bot.displayPaddle();
+  bot.movePaddle();
   
  
   balls.get(0).moveBall();
   balls.get(0).wallCollision();
-  balls.get(0).drawBall();
   balls.get(0).paddleCollision(player);
+  balls.get(0).paddleCollision(bot);
+  balls.get(0).drawBall();
+
 }
 
 
@@ -45,7 +50,7 @@ public void updateScore(){
   for (int i = 0; i < balls.size(); i++){
     if (balls.get(0).goalCollision() == -1){
       //update main players score
-      player.score ++;
+      bot.score ++;  
       reset();
     } else if (balls.get(0).goalCollision() == 1){
       player.score ++;
