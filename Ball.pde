@@ -5,6 +5,8 @@ class Ball{
   private float radius; // The radius of the ball
   public float m; //middle I think
   
+
+  
   public Ball (float x, float y, int r){
     position = new PVector (x, y);
     //velocity = new PVector (0,0);//use for testing collision
@@ -57,13 +59,26 @@ class Ball{
    * Detects if a ball hits a paddle
    * Reflects the ball off in the opposite direction
    * @param the player that the paddle hits */
-  public void paddleCollision(Player p){   
+  public void paddleCollision(Player p){ 
+   //This works okayish with a void
    if(position.x + radius > p.x &&
       position.y + radius > p.y &&
       position.x - radius < p.x + p.w &&
       position.y - radius < p.y + p.h){
+        position.x -= velocity.x;
         velocity.x *= -1;
       }
+   if(position.y + radius > p.y &&
+      position.x + radius > p.x &&
+      position.y - radius < p.y + p.h &&
+      position.x - radius < p.x + p.w){
+        position.y -= velocity.y;
+        velocity.y *= -1;
+      }
+      
+      
+   
+  
   }
   
   
