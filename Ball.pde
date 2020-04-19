@@ -58,31 +58,12 @@ class Ball{
    * Reflects the ball off in the opposite direction
    * @param the player that the paddle hits */
   public void paddleCollision(Player p){   
-    /*if the top of the ball is lower than the top of the paddle
-      if the bottom of the ball is higher than the bottom of the paddle*/
-
-    if (position.y  - radius >= p.y ){
-      
-      if(position.y + radius <= p.y - p.h){
-        //println("TRUE");
-        /* If the ball is moving to the left and the left edge of the ball 
-        is further left than the right side of the paddle */
-        if (velocity.x < 0 && position.x - radius <= p.x + p.w){
-          println((velocity.x < 0) ? (position.x - radius): "False");
-          println(p.x + p.w);
-          //println("Y" + (position.x - radius));
-          //println("afdskfkadshj" + (p.x + p.w));
-          position.x = p.x + p.w + radius;
-          velocity.x *= -1;
-          
-          /*if the right side of the ball is further right 
-          than the left side of the paddle */
-        } else if( position.x + radius >= p.getX()){
-          position.x = p.x - radius;
-          velocity.x *= -1;
-        }
+   if(position.x + radius > p.x &&
+      position.y + radius > p.y &&
+      position.x - radius < p.x + p.w &&
+      position.y - radius < p.y + p.h){
+        velocity.x *= -1;
       }
-    }
   }
   
   

@@ -1,6 +1,9 @@
 int height = 600;
 int width = 600;
 
+StartScreen screen = new StartScreen();
+
+
 //Player stuff
 int pw = width / 12;
 int ph = height / 4;
@@ -20,26 +23,43 @@ void setup(){
   smooth();
   noStroke();
   
+  screen.displaySS();
+  
   balls.add(new Ball (bp.x, bp.y,  bs));
 }
 
 void draw(){
   background(55);
+  game();
+  screen.displaySS();
+  //println(balls.get(0).position.x);
+}
+
+void mousePressed(){
+  if (screen.start.overStart()){
+    screen.startGame = true;
+
+  }
   
-  updateScore();
-  
-  player.displayPaddle();
-  player.movePaddle();
-  bot.displayPaddle();
-  bot.movePaddle();
+}
+
+public void game(){
+  if(screen.startGame){
+     updateScore();
+    
+    player.displayPaddle();
+    player.movePaddle();
+    bot.displayPaddle();
+    bot.movePaddle();
   
  
-  balls.get(0).moveBall();
-  balls.get(0).wallCollision();
-  balls.get(0).paddleCollision(player);
-  balls.get(0).paddleCollision(bot);
-  balls.get(0).drawBall();
+    balls.get(0).moveBall();
+    balls.get(0).wallCollision();
+    balls.get(0).paddleCollision(player);
+    balls.get(0).paddleCollision(bot);
+    balls.get(0).drawBall();
 
+  }
 }
 
 
