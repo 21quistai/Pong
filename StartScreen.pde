@@ -1,6 +1,6 @@
 class StartScreen {
   boolean startGame = false;
-  Button start = new Button(width/2, height/2, 150, 50);
+  Button start = new Button(width/2, height/2, 150, 50, "Start");
     
   public void displaySS(){
     if (!startGame){
@@ -23,12 +23,14 @@ class Button {
   int y;
   int w;
   int h;
+  String text;
   
-  public Button (int x_, int y_, int w_,int h_){
+  public Button (int x_, int y_, int w_,int h_, String t){
     x = x_;
     y = y_;
     w = w_;
     h = h_;
+    text = t;
   }
     
     
@@ -39,7 +41,7 @@ class Button {
     rect (x - (w/2),y - (h/2) + 5,w,h);
     textAlign(CENTER, CENTER);
     textSize(30);
-    text("start", x, y);
+    text(text, x, y);
   }
   
   public boolean overStart(){

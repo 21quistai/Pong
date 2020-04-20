@@ -3,6 +3,8 @@ int width = 600;
 
 StartScreen screen = new StartScreen();
 
+Button back = new Button (width - 150, height - 100, 100, 50, "Back");
+
 
 //Player stuff
 int pw = width / 12;
@@ -39,6 +41,11 @@ void mousePressed(){
   if (screen.start.overStart()){
     screen.startGame = true;
 
+  }
+  if (back.overStart()){
+    screen.startGame = false;
+    player.score = 0;
+    bot.score = 0;
   }
   
 }
@@ -97,10 +104,13 @@ public void score(){
 }
 
 public boolean endGame(){
+  
+  
   if (player.score >= 10 || bot.score >= 10){
     textAlign(CENTER);
     text((player.score >=10) ? "Player 1" : "BOT", width/2, height/2);
     text ("WON!", width/2, height/2 + 30);
+    back.display();
     return true;
   }
   return false;
