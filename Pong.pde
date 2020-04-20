@@ -44,7 +44,7 @@ void mousePressed(){
 }
 
 public void game(){
-  if(screen.startGame){
+  if(screen.startGame && !endGame()){
      updateScore();
     
     player.displayPaddle();
@@ -90,6 +90,18 @@ public void reset(){
 
 
 public void score(){
-  text(player.score, 75,20);
-  text(bot.score, width - 75, 20);
+  if (!endGame()){
+    text(player.score, 75,20);
+    text(bot.score, width - 75, 20);
+  }
+}
+
+public boolean endGame(){
+  if (player.score >= 10 || bot.score >= 10){
+    textAlign(CENTER);
+    text((player.score >=10) ? "Player 1" : "BOT", width/2, height/2);
+    text ("WON!", width/2, height/2 + 30);
+    return true;
+  }
+  return false;
 }
