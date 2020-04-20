@@ -31,7 +31,7 @@ void setup(){
 }
 
 void draw(){
-  background(55);
+  background(0);
   game();
   screen.displaySS();
   score();
