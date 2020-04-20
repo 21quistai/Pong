@@ -32,7 +32,7 @@ void draw(){
   background(55);
   game();
   screen.displaySS();
-  //println(balls.get(0).position.x);
+  score();
 }
 
 void mousePressed(){
@@ -70,10 +70,10 @@ public void updateScore(){
   for (int i = 0; i < balls.size(); i++){
     if (balls.get(0).goalCollision() == -1){
       //update main players score
-      bot.score ++;  
+      player.score ++;  
       reset();
     } else if (balls.get(0).goalCollision() == 1){
-      player.score ++;
+      bot.score ++;
       reset();
     }
   }
@@ -86,4 +86,10 @@ public void reset(){
     balls.get(i).setPosition(new PVector(width/2, height/2));
     //balls.get(i).setVelocity(PVector.random2D()); // if you want a random speed each time uncomment
   }
+}
+
+
+public void score(){
+  text(player.score, 75,20);
+  text(bot.score, width - 75, 20);
 }
