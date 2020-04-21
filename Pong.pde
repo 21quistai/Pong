@@ -5,7 +5,7 @@ StartScreen screen = new StartScreen();
 
 Button back = new Button (width - 150, height - 100, 100, 50, "Back");
 
-
+boolean twoPlayer = false;
 //Player stuff
 int pw = width / 12;
 int ph = height / 4;
@@ -36,6 +36,7 @@ void draw(){
   game();
   screen.displaySS();
   score();
+  println(twoPlayer);
 }
 
 void mousePressed(){
@@ -47,6 +48,13 @@ void mousePressed(){
     screen.startGame = false;
     player.score = 0;
     bot.score = 0;
+  }
+  
+  if (screen.twoPlayer.overStart()){
+    twoPlayer = !twoPlayer;
+    color temp = screen.twoPlayer.c;
+    screen.twoPlayer.c = screen.twoPlayer.t;
+    screen.twoPlayer.t = temp;
   }
   
 }

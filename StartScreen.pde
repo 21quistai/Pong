@@ -1,12 +1,13 @@
 class StartScreen {
   boolean startGame = false;
   Button start = new Button(width/2, height/2, 150, 50, "Start");
+  Button twoPlayer = new Button (width/2, height/2 + 175, 150, 50, "2nd player");
     
   public void displaySS(){
     if (!startGame){
       rect(0, 0, width, height);
       start.display();
-
+      twoPlayer.display();
     }
   }
   
@@ -14,8 +15,9 @@ class StartScreen {
 }
 
 class Button {
-  color clicked = color(255);
-  color norm = color (0);
+ 
+  color c = color (0);
+  color t = color (255);
   
     
 
@@ -35,13 +37,15 @@ class Button {
     
     
   public void display(){
-    noFill();
+    fill(c);
     stroke(255);
     strokeWeight(4);
     rect (x - (w/2),y - (h/2) + 5,w,h);
     textAlign(CENTER, CENTER);
     textSize(30);
+    fill(t);
     text(text, x, y);
+    fill(0);
   }
   
   public boolean overStart(){
