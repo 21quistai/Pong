@@ -52,6 +52,7 @@ void mousePressed(){
   
   if (screen.twoPlayer.overStart() && !screen.startGame){
     twoPlayer = !twoPlayer;
+    bot.isPlayer = true;
     color temp = screen.twoPlayer.c;
     screen.twoPlayer.c = screen.twoPlayer.t;
     screen.twoPlayer.t = temp;
