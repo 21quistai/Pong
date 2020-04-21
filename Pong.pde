@@ -11,8 +11,8 @@ int pw = width / 12;
 int ph = height / 4;
 int px = pw + 20;
 int py = height /2 - ph / 2;
-User player = new User(px, py, pw, ph, 5);
-Bot bot = new Bot(width - pw, py, pw, ph, 5);
+Player player = new Player(px, py, pw, ph, 5, true);
+Player bot = new Player(width - pw, py, pw, ph, 5, false);
 
 
 //Ball stuff
@@ -40,17 +40,17 @@ void draw(){
 }
 
 void mousePressed(){
-  if (screen.start.overStart()){
+  if (screen.start.overStart() && !screen.startGame){
     screen.startGame = true;
 
   }
-  if (back.overStart()){
+  if (back.overStart() && !screen.startGame){
     screen.startGame = false;
     player.score = 0;
     bot.score = 0;
   }
   
-  if (screen.twoPlayer.overStart()){
+  if (screen.twoPlayer.overStart() && !screen.startGame){
     twoPlayer = !twoPlayer;
     color temp = screen.twoPlayer.c;
     screen.twoPlayer.c = screen.twoPlayer.t;
@@ -64,7 +64,7 @@ public void game(){
      updateScore();
     
     player.displayPaddle();
-    player.movePaddle();
+    player.movePaddle(balls);
     bot.displayPaddle();
     bot.movePaddle(balls);
   
