@@ -127,9 +127,7 @@ class User extends Player {
 }
 
 class Bot extends Player {
-  
-  
-  
+
   Bot (int x_, int y_, int w_, int h_, int ySpeed){
     super (x_, y_, w_, h_, ySpeed);
   }
@@ -138,15 +136,18 @@ class Bot extends Player {
   /** Checks all the balls in the game to find the one that is closest to the bot
    * @param the arrayList of balls in the game
    * @return the distance to the closest ball*/
-  public float checkNearestBall(ArrayList <Ball> balls){
+  public int checkNearestBall(ArrayList <Ball> balls){
     float minDist = Integer.MAX_VALUE;
     float dist = 0;
+    int index = 0;
     for (int i = 0; i < balls.size(); i++){
        dist = dist(balls.get(i).position.x, balls.get(i).position.y, super.x , super.y);
-      if (minDist > dist) minDist = dist;
-      
+      if (minDist > dist){
+        minDist = dist;
+        index = i;
+      }
     }
-    return dist;
+    return index;
   }
   
   

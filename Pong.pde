@@ -28,6 +28,7 @@ void setup(){
   screen.displaySS();
   
   balls.add(new Ball (bp.x, bp.y,  bs));
+  balls.add(new Ball (bp.x - 100, bp.y - 100 ,bs));
 }
 
 void draw(){
@@ -36,6 +37,7 @@ void draw(){
   screen.displaySS();
   score();
  
+  println(bot.checkNearestBall(balls));
 }
 
 void mousePressed(){
@@ -60,13 +62,13 @@ public void game(){
     bot.displayPaddle();
     bot.movePaddle();
   
- 
-    balls.get(0).moveBall();
-    balls.get(0).wallCollision();
-    balls.get(0).paddleCollision(player);
-    balls.get(0).paddleCollision(bot);
-    balls.get(0).drawBall();
-
+   for (Ball b : balls){
+     b.moveBall();
+     b.wallCollision();
+     b.paddleCollision(player);
+     b.paddleCollision(bot);
+     b.drawBall();
+   }
   }
 }
 
