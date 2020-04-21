@@ -36,8 +36,6 @@ void draw(){
   game();
   screen.displaySS();
   score();
- 
-  println(bot.checkNearestBall(balls));
 }
 
 void mousePressed(){
@@ -60,7 +58,7 @@ public void game(){
     player.displayPaddle();
     player.movePaddle();
     bot.displayPaddle();
-    bot.movePaddle();
+    bot.movePaddle(balls);
   
    for (Ball b : balls){
      b.moveBall();

@@ -157,16 +157,16 @@ class Bot extends Player {
   * Checks what key the user is pressing with the userInput and moves the paddle 
   * Then checks if the paddle is touching the wall to not move it
   */
-  public void movePaddle(){
-    if (temp){
+  public void movePaddle(ArrayList<Ball> b){
+    if ((b.get(checkNearestBall(b)).position.y) < (super.y) && (b.get(checkNearestBall(b)).velocity.x) > 0 ){
         super.y -= super.ySpeed;
         if(hitWall() == -1) super.y = 1;
         else if (hitWall() == 1) super.y = height - super.h;
-    } else if(!temp){
-      super.y += super.ySpeed;
-      if(hitWall() == -1) super.y = 1;
-      else if (hitWall() == 1) super.y = height - super.h ;
-    } 
+    } else if((b.get(checkNearestBall(b)).position.y) > (super.y + super.h) && (b.get(checkNearestBall(b)).velocity.x) > 0){
+        super.y += super.ySpeed;
+        if(hitWall() == -1) super.y = 1;
+        else if (hitWall() == 1) super.y = height - super.h ;
+    } else super.y = super.y;
   }
   
   
