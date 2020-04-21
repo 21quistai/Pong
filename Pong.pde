@@ -76,24 +76,25 @@ public void game(){
  * left and right wall*/
 public void updateScore(){
   for (int i = 0; i < balls.size(); i++){
-    if (balls.get(0).goalCollision() == -1){
+    if (balls.get(i).goalCollision() == -1){
       //update main players score
       player.score ++;  
-      reset();
-    } else if (balls.get(0).goalCollision() == 1){
+      reset(balls.get(i));
+    } else if (balls.get(i).goalCollision() == 1){
       bot.score ++;
-      reset();
+      reset(balls.get(i));
     }
   }
 }
 
 /**
  * resets the ball to the middle of the sceen*/
-public void reset(){
-  for (Ball b : balls){
-    b.setPosition(new PVector(width/2, height/2));
+public void reset(Ball b){
+    b.position.x = width/2;
+    b.position.y = height/2;
+    b.velocity = PVector.random2D();
+    //b.setPosition(new PVector(width/2, height/2));
     //balls.get(i).setVelocity(PVector.random2D()); // if you want a random speed each time uncomment
-  }
 }
 
 
