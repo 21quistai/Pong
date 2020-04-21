@@ -4,15 +4,17 @@ class Player{
   protected int w, h; // width + height of the paddle
   protected int score; // score of the player
   private boolean isPlayer;
+  private int playerNum;
 
 	
-  public Player (int x_, int y_, int w_, int h_, int ys, boolean ip){
+  public Player (int x_, int y_, int w_, int h_, int ys, boolean ip, int pn){
     this.x = x_;
     this.y = y_;
     this.w = w_;
     this.h = h_;
     this.ySpeed = ys;
     this.isPlayer = ip;
+    this.playerNum = pn;
   }	  
   
   /** 
@@ -31,11 +33,19 @@ class Player{
    * @return 0 if the user isn't pressing anything or the wrong key
    */
   public int userInput(){
-    if (keyPressed){
-      if (keyCode == UP) return -1;
-      else if (keyCode == DOWN) return 1;
-      else return 0;
-    }else return 0;
+    if (playerNum == 1){
+      if (keyPressed){
+        if (key == 'w' || key == 'W') return -1;
+        else if (key == 's' || key == 'S') return 1;
+        else return 0;
+      }else return 0;
+    } else {
+      if (keyPressed){
+        if (keyCode == UP) return -1;
+        else if (keyCode == DOWN) return 1;
+        else return 0;
+      }else return 0;
+    }
   }
   
   

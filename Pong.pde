@@ -11,8 +11,8 @@ int pw = width / 12;
 int ph = height / 4;
 int px = pw + 20;
 int py = height /2 - ph / 2;
-Player player = new Player(px, py, pw, ph, 5, true);
-Player bot = new Player(width - pw, py, pw, ph, 5, false);
+Player player = new Player(px, py, pw, ph, 5, true, 1);
+Player bot = new Player(width - pw, py, pw, ph, 5, false, 2);
 
 
 //Ball stuff
