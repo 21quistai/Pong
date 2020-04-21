@@ -36,7 +36,6 @@ void draw(){
   game();
   screen.displaySS();
   score();
-  println(twoPlayer);
 }
 
 void mousePressed(){
@@ -44,7 +43,7 @@ void mousePressed(){
     screen.startGame = true;
 
   }
-  if (back.overStart() && !screen.startGame){
+  if (back.overStart() && screen.startGame){
     screen.startGame = false;
     player.score = 0;
     bot.score = 0;
@@ -118,9 +117,11 @@ public boolean endGame(){
   
   
   if (player.score >= 10 || bot.score >= 10){
+    fill(255);
     textAlign(CENTER);
     text((player.score >=10) ? "Player 1" : "BOT", width/2, height/2);
     text ("WON!", width/2, height/2 + 30);
+    fill(0);
     back.display();
     return true;
   }
