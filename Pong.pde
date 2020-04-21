@@ -90,8 +90,8 @@ public void updateScore(){
 /**
  * resets the ball to the middle of the sceen*/
 public void reset(){
-  for (int i = 0; i < balls.size(); i++){
-    balls.get(i).setPosition(new PVector(width/2, height/2));
+  for (Ball b : balls){
+    b.setPosition(new PVector(width/2, height/2));
     //balls.get(i).setVelocity(PVector.random2D()); // if you want a random speed each time uncomment
   }
 }
