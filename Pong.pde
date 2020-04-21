@@ -11,8 +11,8 @@ int pw = width / 12;
 int ph = height / 4;
 int px = pw + 20;
 int py = height /2 - ph / 2;
-Player player = new Player(px, py, pw, ph);
-Player bot = new Player(width - pw, py, pw, ph);
+User player = new User(px, py, pw, ph, 5);
+Bot bot = new Bot(width - pw, py, pw, ph, 5);
 
 
 //Ball stuff
@@ -35,6 +35,7 @@ void draw(){
   game();
   screen.displaySS();
   score();
+ 
 }
 
 void mousePressed(){
