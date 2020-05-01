@@ -1,27 +1,26 @@
 class Ball{
-  private PVector position; // Position of the ball has an x and y
-  private PVector velocity; // The velocity of the ball has an x and y
-  
+  private PVector position; // X and Y position of the ball with a vector
+  private PVector velocity; // Y and YSpeed of the ball 
   private float radius; // The radius of the ball
-  public float m; //middle I think
+  private float m; //middle of the ball I think
   
 
-  
+  // Constructor
   public Ball (float x, float y, int r){
     position = new PVector (x, y);
-    //velocity = new PVector (0,0);//use for testing collision
-    velocity = PVector.random2D();// use this for final version
+    velocity = PVector.random2D(); // Creates a random velocity
     velocity.mult(3);
     radius = r;
     m = radius*.1;
   }
   
-  
-  public void drawBall(){
+  /** displays the ball*/
+  public void displayBall(){
     fill(255);
     ellipse(position.x,position.y, radius*2, radius*2);
   }
   
+  /** adds the velocity to the current position to move the ball*/
   public void moveBall(){
     position.add(velocity);
   }
@@ -45,7 +44,6 @@ class Ball{
    * @return 1 if it passes the right wall
    * @return 0 if it hasn't hit any wall*/
   public int goalCollision(){
-
     // Left wall
     if (position.x - radius> width) return -1;
     // Right wall
@@ -68,6 +66,9 @@ class Ball{
         position.x -= velocity.x;
         velocity.x *= -1;
       }
+      
+   //Not sure if this is useful or not
+   //It was supposed to bounce the ball off the top of the ball but it doesn't work
    if(position.y + radius > p.y &&
       position.x + radius > p.x &&
       position.y - radius < p.y + p.h &&
@@ -75,17 +76,14 @@ class Ball{
         position.y -= velocity.y;
         velocity.y *= -1;
       }
-      
-      
-   
-  
   }
   
   
   /**
    * Detects if the ball hits another ball
    * Reflects the ball off and changes the velocity
-   * @param the ball that it hits */
+   * @param the ball that it hits 
+   * yeah not my code for the most part*/
   void BallCollision(Ball other){
     // Calculates the distance between the two balls
     PVector distanceBtwn = PVector.sub(other.position, position);
@@ -106,7 +104,6 @@ class Ball{
       float theta = distanceBtwn.heading();
       float sine = sin(theta);
       float cosine = cos(theta);
-      
       
       /* bTemp will hold rotated ball positions. You 
        just need to worry about bTemp[1] position*/
@@ -207,5 +204,4 @@ class Ball{
   public void setVelocity(PVector thing){
     velocity = thing;
   }
-  
 }
